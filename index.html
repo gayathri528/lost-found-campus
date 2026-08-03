@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lost & Found Campus</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #222;
+        }
+
+        header {
+            background: #163d73;
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 36px;
+        }
+
+        header p {
+            margin-top: 10px;
+        }
+
+        nav {
+            background: #0e2d55;
+            text-align: center;
+            padding: 14px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 8px 15px;
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        nav a:hover {
+            color: #ffd54f;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 55px 20px;
+            background: white;
+        }
+
+        .hero h2 {
+            color: #163d73;
+            font-size: 30px;
+        }
+
+        .hero p {
+            font-size: 17px;
+            color: #555;
+        }
+
+        .buttons {
+            margin-top: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 13px 22px;
+            margin: 8px;
+            background: #163d73;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .btn:hover {
+            background: #0e2d55;
+        }
+
+        section {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        section h2 {
+            text-align: center;
+            color: #163d73;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+
+        textarea {
+            height: 90px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 7px;
+            background: #163d73;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0e2d55;
+        }
+
+        .message {
+            margin-top: 15px;
+            text-align: center;
+            color: green;
+            font-weight: bold;
+        }
+
+        .search-box {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        .map-box {
+            text-align: center;
+            padding: 30px;
+            background: #eef4fc;
+            border: 2px dashed #163d73;
+            border-radius: 10px;
+        }
+
+        .map-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .location {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #cbd7e6;
+        }
+
+        footer {
+            text-align: center;
+            background: #0e2d55;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media(max-width: 600px) {
+            header h1 {
+                font-size: 28px;
+            }
+
+            .map-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🔎 Lost & Found Campus</h1>
+    <p>Helping students find their lost belongings easily</p>
+</header>
+
+<nav>
+    <a href="#home">Home</a>
+    <a href="#lost">Report Lost</a>
+    <a href="#found">Report Found</a>
+    <a href="#search">Search</a>
+    <a href="#map">Campus Map</a>
+</nav>
+
+
+<div class="hero" id="home">
+
+    <h2>Lost Something on Campus?</h2>
+
+    <p>
+        Report lost or found items and help belongings
+        return to their owners.
+    </p>
+
+    <div class="buttons">
+        <a class="btn" href="#lost">Report Lost Item</a>
+        <a class="btn" href="#found">Report Found Item</a>
+    </div>
+
+</div>
+
+
+<section id="lost">
+
+    <h2>📢 Report Lost Item</h2>
+
+    <form onsubmit="submitLost(event)">
+
+        <label>Your Name</label>
+        <input type="text" required>
+
+        <label>Item Name</label>
+        <input type="text" placeholder="Example: Black Wallet" required>
+
+        <label>Category</label>
+
+        <select required>
+            <option value="">Select Category</option>
+            <option>ID Card</option>
+            <option>Mobile Phone</option>
+            <option>Wallet</option>
+            <option>Keys</option>
+            <option>Books</option>
+            <option>Bag</option>
+            <option>Electronics</option>
+            <option>Other</option>
+        </select>
+
+        <label>Lost Location</label>
+
+        <select required>
+            <option value="">Select Location</option>
+            <option>Library</option>
+            <option>Canteen</option>
+            <option>Classroom Block</option>
+            <option>Laboratory</option>
+            <option>Parking Area</option>
+            <option>Playground</option>
+            <option>Other</option>
+        </select>
+
+        <label>Date Lost</label>
+        <input type="date" required>
+
+        <label>Item Description</label>
+
+        <textarea
+            placeholder="Enter colour, brand or other identification details"
+            required>
+        </textarea>
+
+        <label>Upload Item Photo</label>
+        <input type="file" accept="image/*">
+
+        <label>Contact Number / Email</label>
+        <input type="text" required>
+
+        <button type="submit">
+            Submit Lost Item
+        </button>
+
+        <div class="message" id="lostMessage"></div>
+
+    </form>
+
+</section>
+
+
+<section id="found">
+
+    <h2>✅ Report Found Item</h2>
+
+    <form onsubmit="submitFound(event)">
+
+        <label>Your Name</label>
+        <input type="text" required>
+
+        <label>Found Item</label>
+        <input type="text" placeholder="Example: College ID Card" required>
+
+        <label>Category</label>
+
+        <select required>
+            <option value="">Select Category</option>
+            <option>ID Card</option>
+            <option>Mobile Phone</option>
+            <option>Wallet</option>
+            <option>Keys</option>
+            <option>Books</option>
+            <option>Bag</option>
+            <option>Electronics</option>
+            <option>Other</option>
+        </select>
+
+        <label>Found Location</label>
+
+        <select required>
+            <option value="">Select Location</option>
+            <option>Library</option>
+            <option>Canteen</option>
+            <option>Classroom Block</option>
+            <option>Laboratory</option>
+            <option>Parking Area</option>
+            <option>Playground</option>
+            <option>Other</option>
+        </select>
+
+        <label>Date Found</label>
+        <input type="date" required>
+
+        <label>Description</label>
+
+        <textarea
+            placeholder="Describe the item"
+            required>
+        </textarea>
+
+        <label>Upload Found Item Photo</label>
+        <input type="file" accept="image/*">
+
+        <label>Contact Number / Email</label>
+        <input type="text" required>
+
+        <button type="submit">
+            Submit Found Item
+        </button>
+
+        <div class="message" id="foundMessage"></div>
+
+    </form>
+
+</section>
+
+
+<section id="search">
+
+    <h2>🔍 Search Lost & Found Items</h2>
+
+    <div class="search-box">
+
+        <label>Search Item</label>
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Example: Wallet, ID Card, Phone">
+
+        <label>Category</label>
+
+        <select id="searchCategory">
+            <option>All Categories</option>
+            <option>ID Card</option>
+            <option>Mobile Phone</option>
+            <option>Wallet</option>
+            <option>Keys</option>
+            <option>Books</option>
+            <option>Bag</option>
+        </select>
+
+        <button onclick="searchItem()">
+            Search
+        </button>
+
+        <div class="message" id="searchMessage"></div>
+
+    </div>
+
+</section>
+
+
+<section id="map">
+
+    <h2>📍 Campus Map</h2>
+
+    <div class="map-box">
+
+        <h3>Campus Lost & Found Locations</h3>
+
+        <p>
+            Select or identify the location where an item
+            was lost or found.
+        </p>
+
+        <div class="map-grid">
+
+            <div class="location">
+                📚
+                <h3>Library</h3>
+            </div>
+
+            <div class="location">
+                🍴
+                <h3>Canteen</h3>
+            </div>
+
+            <div class="location">
+                🏫
+                <h3>Classroom Block</h3>
+            </div>
+
+            <div class="location">
+                🧪
+                <h3>Laboratory</h3>
+            </div>
+
+            <div class="location">
+                🚗
+                <h3>Parking Area</h3>
+            </div>
+
+            <div class="location">
+                🏏
+                <h3>Playground</h3>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section>
+
+    <h2>💡 How It Works</h2>
+
+    <p>
+        <b>Step 1:</b> Scan the campus QR code and open this website.
+    </p>
+
+    <p>
+        <b>Step 2:</b> Report whether you lost or found an item.
+    </p>
+
+    <p>
+        <b>Step 3:</b> Enter the item details and campus location.
+    </p>
+
+    <p>
+        <b>Step 4:</b> Search for matching lost and found items.
+    </p>
+
+    <p>
+        <b>Step 5:</b> After verification, the item can be returned
+        to its owner.
+    </p>
+
+</section>
+
+
+<footer>
+
+    <p>Lost & Found Campus System</p>
+
+    <p>Mini Project</p>
+
+</footer>
+
+
+<script>
+
+function submitLost(event) {
+
+    event.preventDefault();
+
+    document.getElementById("lostMessage").innerHTML =
+        "✅ Lost item report submitted successfully!";
+
+}
+
+
+function submitFound(event) {
+
+    event.preventDefault();
+
+    document.getElementById("foundMessage").innerHTML =
+        "✅ Found item report submitted successfully!";
+
+}
+
+
+function searchItem() {
+
+    let item =
+        document.getElementById("searchInput").value;
+
+    if(item.trim() === "") {
+
+        document.getElementById("searchMessage").innerHTML =
+            "Please enter an item to search.";
+
+    } else {
+
+        document.getElementById("searchMessage").innerHTML =
+            "🔍 Searching for: " + item;
+
+    }
+
+}
+
+</script>
+
+
+</body>
+</html>
