@@ -484,14 +484,33 @@
 
 
 <script>
-
-function submitLost(event) {
-
+async function submitLost(event) {
     event.preventDefault();
 
-    document.getElementById("lostMessage").innerHTML =
-        "✅ Lost item report submitted successfully!";
+    const form = event.target;
 
+    const data = {
+        name: form.elements[0].value,
+        item: form.elements[1].value,
+        category: form.elements[2].value,
+        location: form.elements[3].value,
+        description: form.elements[4].value,
+        type: "lost",
+        createdAt: new Date()
+    };
+
+    try {
+        await addDoc(collection(db, "lostItems"), data);
+
+        document.getElementById("lostMessage").innerHTML =
+            "✅ Lost item report submitted successfully!";
+
+        form.reset();
+    } catch (error) {
+        document.getElementById("lostMessage").innerHTML =
+            "❌ Error submitting lost item.";
+        console.error(error);
+    }
 }
 
 
@@ -528,7 +547,14 @@ function searchItem() {
 
     <script type="module">
   // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.0/firebase-app.js";
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+  import {
+      getFirestore,
+      collection,
+      addDoc
+  }   from
+  "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";    
+      
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -544,6 +570,8 @@ function searchItem() {
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  window.db = db;      
 </script>
 
 
