@@ -547,24 +547,81 @@ async function submitFound(event) {
     }
 }
 
+async function searchItem() {
 
-function searchItem() {
+    const item = document.getElementById("searchInput").value.trim().toLowerCase();
+    const category = document.getElementById("searchCategory").value;
 
-    let item =
-        document.getElementById("searchInput").value;
+    const message = document.getElementById("searchMessage");
 
-    if(item.trim() === "") {
-
-        document.getElementById("searchMessage").innerHTML =
-            "Please enter an item to search.";
-
-    } else {
-
-        document.getElementById("searchMessage").innerHTML =
-            "🔍 Searching for: " + item;
-
+    if (item === "") {
+        message.innerHTML = "Please enter an item to search.";
+        return;
     }
 
+    message.innerHTML = "🔍 Searching...";
+
+    try {
+
+        const lostSnapshot = await window.getDocs(
+            window.collection(window.db, "lostItems")
+        );
+
+        const foundSnapshot = await window.getDocs(
+            window.collection(window.db, "foundItems")
+        );
+
+        let results = [];
+
+        lostSnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            if (
+                data.item &&
+                data.item.toLowerCase().includes(item) &&
+                (category === "All Categories" || data.category === category)
+            ) {
+                results.push(data);
+            }
+        });
+
+        foundSnapshot.forEach((doc) => {
+            const data = doc.data();
+
+            if (
+                data.item &&
+                data.item.toLowerCase().includes(item) &&
+                (category === "All Categories" || data.category === category)
+            ) {
+                results.push(data);
+            }
+        });
+
+        if (results.length === 0) {
+            message.innerHTML = "❌ No matching item found.";
+            return;
+        }
+
+        let output = "<h3>Search Results</h3>";
+
+        results.forEach((data) => {
+            output += `
+                <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+                    <b>Item:</b> ${data.item}<br>
+                    <b>Category:</b> ${data.category}<br>
+                    <b>Location:</b> ${data.location}<br>
+                    <b>Description:</b> ${data.description}<br>
+                    <b>Type:</b> ${data.type}
+                </div>
+            `;
+        });
+
+        message.innerHTML = output;
+
+    } catch (error) {
+        console.error(error);
+        message.innerHTML = "❌ Error searching items.";
+    }
 }
 
 </script>
