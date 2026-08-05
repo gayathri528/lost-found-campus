@@ -623,6 +623,69 @@ async function searchItem() {
         });
 
         message.innerHTML = output;
+        const matchBox = document.getElementById("matchMessage");
+
+let lostData = [];
+let foundData = [];
+
+lostSnapshot.forEach((doc) => {
+    lostData.push(doc.data());
+});
+
+foundSnapshot.forEach((doc) => {
+    foundData.push(doc.data());
+});
+
+let matches = [];
+
+lostData.forEach((lost) => {
+    foundData.forEach((found) => {
+
+        const sameItem =
+            lost.item &&
+            found.item &&
+            lost.item.toLowerCase().includes(found.item.toLowerCase()) ||
+            (lost.item &&
+             found.item &&
+             found.item.toLowerCase().includes(lost.item.toLowerCase()));
+
+        const sameCategory =
+            lost.category === found.category;
+
+        if (sameItem && sameCategory) {
+            matches.push({ lost, found });
+        }
+    });
+});
+
+if (matches.length === 0) {
+
+    matchBox.innerHTML =
+        "❌ No possible Lost & Found match found.";
+
+} else {
+
+    let matchOutput = "";
+
+    matches.forEach((match) => {
+
+        matchOutput += `
+            <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+                <b>🎯 Possible Match!</b><br><br>
+
+                <b>Lost Item:</b> ${match.lost.item}<br>
+                <b>Lost Location:</b> ${match.lost.location}<br><br>
+
+                <b>Found Item:</b> ${match.found.item}<br>
+                <b>Found Location:</b> ${match.found.location}<br>
+
+                <br>✅ Item name and category match.
+            </div>
+        `;
+    });
+
+    matchBox.innerHTML = matchOutput;
+}
 
     } catch (error) {
         console.error(error);
