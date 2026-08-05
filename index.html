@@ -570,7 +570,7 @@ qrBox.innerHTML = "";
    const qrText =
     window.location.origin +
     window.location.pathname +
-    "?foundId=" + encodeURIComponent(dataRef.id);
+    "?foundId=" + encodeURIComponent(docRef.id);
 new QRCode(qrBox, {
     text: qrText,
     width: 180,
@@ -768,7 +768,7 @@ if (matches.length === 0) {
   window.getDoc = getDoc;      
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
 
     const params = new URLSearchParams(window.location.search);
 const foundId = params.get("foundId");
