@@ -191,6 +191,7 @@
             }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 
 <body>
@@ -352,6 +353,11 @@
         </button>
 
         <div class="message" id="foundMessage"></div>
+        <div id="foundQRSection" style="display:none; text-align:center; margin-top:20px;">
+    <h3>📱 Found Item QR Code</h3>
+    <p>Scan this QR code to view the item information.</p>
+    <div id="foundQRCode" style="display:inline-block;"></div>
+</div>
 
     </form>
 
@@ -542,6 +548,26 @@ async function submitFound(event) {
 
         document.getElementById("foundMessage").innerHTML =
             "✅ Found item report submitted successfully!";
+
+        // Generate QR Code for the found item
+const qrSection = document.getElementById("foundQRSection");
+const qrBox = document.getElementById("foundQRCode");
+
+qrBox.innerHTML = "";
+
+const qrText =
+    "Found Item: " + data.item +
+    "\nCategory: " + data.category +
+    "\nLocation: " + data.location +
+    "\nDescription: " + data.description;
+
+new QRCode(qrBox, {
+    text: qrText,
+    width: 180,
+    height: 180
+});
+
+qrSection.style.display = "block";
 
         form.reset();
 
