@@ -571,6 +571,8 @@ const qrText =
     "?item=" + encodeURIComponent(data.item) +
     "&category=" + encodeURIComponent(data.category) +
     "&location=" + encodeURIComponent(data.location) +
+    "&keptAt=" + encodeURIComponent(data.keptAt) +
+    "&date=" + encodeURIComponent(data.date) +
     "&description=" + encodeURIComponent(data.description);
 
 new QRCode(qrBox, {
@@ -773,6 +775,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const item = params.get("item");
     const category = params.get("category");
     const location = params.get("location");
+    const keptAt = params.get("keptAt");
+    const date = params.get("date");
     const description = params.get("description");
 
     if (item) {
@@ -791,7 +795,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
             <p><b>Item:</b> ${item}</p>
             <p><b>Category:</b> ${category}</p>
-            <p><b>Location:</b> ${location}</p>
+            <p><b>Found Location:</b> ${location}</p>
+            <p><b>Currently Kept At:</b> ${keptAt}</p>
+            <p><b>Date Found:</b> ${date}</p>
             <p><b>Description:</b> ${description}</p>
         `;
 
