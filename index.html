@@ -560,6 +560,13 @@ async function submitFound(event) {
             window.collection(window.db, "foundItems"),
             data
         );
+        const itemURL =
+    window.location.origin +
+    window.location.pathname +
+    "?foundId=" +
+    docRef.id;
+
+        
 
         document.getElementById("foundMessage").innerHTML =
             "✅ Found item report submitted successfully!";
@@ -575,7 +582,7 @@ qrBox.innerHTML = "";
     window.location.pathname +
     "?foundId=" + encodeURIComponent(docRef.id);
 new QRCode(qrBox, {
-    text: qrText,
+    text: itemURL,
     width: 180,
     height: 180
 });
