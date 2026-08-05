@@ -569,7 +569,15 @@ qrBox.innerHTML = "";
 const qrText =
     window.location.origin +
     window.location.pathname +
-    "?item=" + encodeURIComponent(data.item);
+    "?item=" + encodeURIComponent(data.item);const qrText =
+    window.location.origin +
+    window.location.pathname +
+    "?item=" + encodeURIComponent(data.item) +
+    "&category=" + encodeURIComponent(data.category) +
+    "&location=" + encodeURIComponent(data.location) +
+    "&keptAt=" + encodeURIComponent(data.keptAt) +
+    "&date=" + encodeURIComponent(data.date) +
+    "&description=" + encodeURIComponent(data.description);
     
 new QRCode(qrBox, {
     text: qrText,
