@@ -556,10 +556,12 @@ const qrBox = document.getElementById("foundQRCode");
 qrBox.innerHTML = "";
 
 const qrText =
-    "Found Item: " + data.item +
-    "\nCategory: " + data.category +
-    "\nLocation: " + data.location +
-    "\nDescription: " + data.description;
+    window.location.origin +
+    window.location.pathname +
+    "?item=" + encodeURIComponent(data.item) +
+    "&category=" + encodeURIComponent(data.category) +
+    "&location=" + encodeURIComponent(data.location) +
+    "&description=" + encodeURIComponent(data.description);
 
 new QRCode(qrBox, {
     text: qrText,
