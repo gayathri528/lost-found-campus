@@ -566,10 +566,8 @@ const qrSection = document.getElementById("foundQRSection");
 const qrBox = document.getElementById("foundQRCode");
 
 qrBox.innerHTML = "";
-const qrText =
-    window.location.origin +
-    window.location.pathname +
-    "?item=" + encodeURIComponent(data.item);const qrText =
+
+   const qrText =
     window.location.origin +
     window.location.pathname +
     "?item=" + encodeURIComponent(data.item) +
