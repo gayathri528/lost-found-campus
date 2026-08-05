@@ -578,7 +578,7 @@ const qrText =
     "&description=" + encodeURIComponent(data.description);
 
 new QRCode(qrBox, {
-    text: qrText.substring(0, 500),
+    text: qrText.substring(0, 200),
     width: 180,
     height: 180
 });
