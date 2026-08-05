@@ -513,14 +513,38 @@ async function submitLost(event) {
     }
 }
 
-
-function submitFound(event) {
-
+async function submitFound(event) {
     event.preventDefault();
 
-    document.getElementById("foundMessage").innerHTML =
-        "✅ Found item report submitted successfully!";
+    const form = event.target;
 
+    const data = {
+        name: form.elements[0].value,
+        item: form.elements[1].value,
+        category: form.elements[2].value,
+        location: form.elements[3].value,
+        description: form.elements[4].value,
+        type: "found",
+        createdAt: new Date()
+    };
+
+    try {
+        await window.addDoc(
+            window.collection(window.db, "foundItems"),
+            data
+        );
+
+        document.getElementById("foundMessage").innerHTML =
+            "✅ Found item report submitted successfully!";
+
+        form.reset();
+
+    } catch (error) {
+        document.getElementById("foundMessage").innerHTML =
+            "❌ Error submitting found item.";
+
+        console.error(error);
+    }
 }
 
 
