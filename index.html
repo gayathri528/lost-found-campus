@@ -575,7 +575,8 @@ function searchItem() {
   import {
       getFirestore,
       collection,
-      addDoc
+      addDoc,
+      getDocs
   }   from
   "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";    
       
@@ -597,7 +598,8 @@ function searchItem() {
   const db = getFirestore(app);
   window.db = db;
   window.addDoc = addDoc;
-  window.collection = collection;      
+  window.collection = collection;
+  window.getDocs = getDocs;      
 </script>
 
 
