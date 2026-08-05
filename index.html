@@ -755,6 +755,41 @@ if (matches.length === 0) {
   window.collection = collection;
   window.getDocs = getDocs;      
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const item = params.get("item");
+    const category = params.get("category");
+    const location = params.get("location");
+    const description = params.get("description");
+
+    if (item) {
+
+        const detailsBox = document.createElement("div");
+
+        detailsBox.style.maxWidth = "600px";
+        detailsBox.style.margin = "30px auto";
+        detailsBox.style.padding = "20px";
+        detailsBox.style.border = "2px solid #2e7d32";
+        detailsBox.style.borderRadius = "10px";
+        detailsBox.style.background = "#f1f8e9";
+
+        detailsBox.innerHTML = `
+            <h2>🔍 Found Item Details</h2>
+
+            <p><b>Item:</b> ${item}</p>
+            <p><b>Category:</b> ${category}</p>
+            <p><b>Location:</b> ${location}</p>
+            <p><b>Description:</b> ${description}</p>
+        `;
+
+        document.body.prepend(detailsBox);
+    }
+
+});
+</script>    
 
 
 </body>
