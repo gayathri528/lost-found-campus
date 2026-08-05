@@ -553,7 +553,7 @@ async function submitFound(event) {
     };
 
     try {
-        await window.addDoc(
+        const docRef = await window.addDoc(
             window.collection(window.db, "foundItems"),
             data
         );
@@ -570,7 +570,7 @@ qrBox.innerHTML = "";
    const qrText =
     window.location.origin +
     window.location.pathname +
-    "?item=" + encodeURIComponent(data.item);
+    "?foundId=" + encodeURIComponent(data.id);
 new QRCode(qrBox, {
     text: qrText,
     width: 180,
