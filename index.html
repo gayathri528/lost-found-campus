@@ -331,7 +331,15 @@
             <option>Playground</option>
             <option>Other</option>
         </select>
-
+        <label>Currently Kept At</label>
+<select required>
+    <option value="">Select Current Location</option>
+    <option>Campus Security Office</option>
+    <option>Lost & Found Desk</option>
+    <option>Library Office</option>
+    <option>Department Office</option>
+    <option>College Reception</option>
+</select>
         <label>Date Found</label>
         <input type="date" required>
 
@@ -535,7 +543,9 @@ async function submitFound(event) {
         item: form.elements[1].value,
         category: form.elements[2].value,
         location: form.elements[3].value,
-        description: form.elements[5].value,
+        keptAt: form.elements[4].value,
+        date: form.elements[5].value,
+        description: form.elements[6].value,
         type: "found",
         createdAt: new Date()
     };
