@@ -738,7 +738,9 @@ if (matches.length === 0) {
       getFirestore,
       collection,
       addDoc,
-      getDocs
+      getDocs,
+      doc,
+      getDoc
   }   from
   "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";    
       
@@ -761,21 +763,30 @@ if (matches.length === 0) {
   window.db = db;
   window.addDoc = addDoc;
   window.collection = collection;
-  window.getDocs = getDocs;      
+  window.getDocs = getDocs;
+  window.doc = doc;
+  window.getDoc = getDoc;      
 </script>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
     const params = new URLSearchParams(window.location.search);
+const foundId = params.get("foundId");
 
-    const item = params.get("item");
-    const category = params.get("category");
-    const location = params.get("location");
-    const keptAt = params.get("keptAt");
-    const date = params.get("date");
-    const description = params.get("description");
+if (foundId) {
+    try {
+        const docRef = window.doc(window.db, "foundItems", foundId);
+        const docSnap = await window.getDoc(docRef);
 
-    if (item) {
+        if (docSnap.exists()) {
+            const foundData = docSnap.data();
+
+            const item = foundData.item || "";
+            const category = foundData.category || "";
+            const location = foundData.location || "";
+            const keptAt = foundData.keptAt || "";
+            const date = foundData.date || "";
+            const description = foundData.description || "";
 
         const detailsBox = document.createElement("div");
 
@@ -799,6 +810,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         document.body.prepend(detailsBox);
     }
+    } catch (error) {
+        console.error("Error loading found item:", error);
+    }
+}
 
 });
 </script>    
